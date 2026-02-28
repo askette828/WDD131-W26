@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+form {
+    position: relative;
+    padding-bottom: 0;
+}
+
+/* Shared card styles */
+.card {
+    background: #cccccc;
+    border-radius: 16px;
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Back card — offset down-right, behind front card */
+.card-back {
+    position: absolute;
+    top: 100px;
+    left: 80px;
+    right: -40px;
+    height: 260px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.magnetic-stripe {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: #111;
+}
+
+.cvv-section {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 120px;
+}
+
+.cvv-section label {
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.cvv-section input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background: #fff;
+    color: #555;
+    font-size: 15px;
+}
+
+/* Front card — on top */
+.card-front {
+    position: relative;
+    z-index: 2;
+    padding: 28px 32px 32px 32px;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 18px;
+    margin-right: 30px;
+    margin-bottom: 0;
+}
+
+.total-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Chip image (gold rectangle) */
+.chip {
+    width: 52px;
+    height: 38px;
+    background: linear-gradient(135deg, #c8a84b 0%, #e8d080 40%, #b8902a 100%);
+    border-radius: 5px;
+    border: 1px solid #a07820;
+    position: relative;
+    overflow: hidden;
+}
+
+.chip::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 1px;
+    background: rgba(0,0,0,0.3);
+    transform: translateY(-50%);
+}
+
+.chip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.3);
+    transform: translateX(-50%);
+}
+
+.card-number-section label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.card-number-section input {
+    width: 65%;
+    padding: 10px 14px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background: #fff;
+    color: #555;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+/* Bottom row: card holder + expiration side by side */
+.bottom-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    align-items: end;
+}
+
+.card-holder-section label,
+.card-expiration label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.card-holder-section input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background: #fff;
+    color: #555;
+    font-size: 15px;
+}
+
+.exp-inputs {
+    display: flex;
+    gap: 8px;
+}
+
+.exp-inputs input {
+    width: 60px;
+    padding: 10px 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background: #fff;
+    color: #555;
+    font-size: 15px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+input.error {
+    border-color: #ff0000;
+    background: #fff5f5;
+}
+
+/* Submit button — sits below back card, aligned right */
+.submit-btn {
+    display: block;
+    position: relative;
+    z-index: 0;
+    margin-top: 160px;
+    margin-left: auto;
+    margin-right: -20px;
+    padding: 12px 50px;
+    background: #fff;
+    color: #000;
+    border: 2px solid #888;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.submit-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+.feedback {
+    margin-top: 20px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    animation: slideIn 0.4s ease;
+    line-height: 1.6;
+}
+
+.feedback.success {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    border-left: 6px solid #81c784;
+}
+
+.feedback.error {
+    background: #c62828;
+    color: white;
+    text-align: left;
+    border-left: 6px solid #ef9a9a;
+}
+
+.feedback.hidden  { display: none; }
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 560px) {
+    .card-back {
+        top: 30px;
+        left: 20px;
+        right: -10px;
+    }
+    .bottom-row {
+        grid-template-columns: 1fr;
+    }
+    .card-front {
+        margin-right: 10px;
+        margin-bottom: 60px;
+    }
+    .submit-btn {
+        margin-top: 200px;
+        margin-right: 0;
+        width: 100%;
+    }
+}
