@@ -1,0 +1,70 @@
+:root {
+  --text-color: #101010;
+  --muted: #6b6b6b;
+  --badge-bg: #e5e5e5;
+  --badge-border: #9f9f9f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text-color);
+  background: #f4f4f4;
+}
+
+.container {
+  max-width: 900px;
+  padding: 8px;
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.search-row input {
+  width: 160px;
+  height: 24px;
+  border: 1px solid #557ea3;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  margin: 0 0 8px 0;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.tag {
+  padding: 2px 8px;
+  border: 1px solid var(--badge-border);
+  background: var(--badge-bg);
+  font-size: 14px;
+}
+
+.description {
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+.difficulty {
+  margin: 0;
+}
+
+.empty {
+  color: var(--muted);
+}
