@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecipeBook - Find Your Favorite Recipes</title>
+    <meta name="description" content="Discover delicious recipes with RecipeBook. Browse, search, and find your next favorite dish.">
+    
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RecipeBook - Find Your Favorite Recipes">
+    <meta property="og:description" content="Discover delicious recipes with RecipeBook. Browse, search, and find your next favorite dish.">
+    <meta property="og:url" content="https://example.com/recipes/">
+    <meta property="og:image" content="https://example.com/recipes/images/social-preview.png">
+    
+    <!-- X (Twitter) Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RecipeBook - Find Your Favorite Recipes">
+    <meta name="twitter:description" content="Discover delicious recipes with RecipeBook. Browse, search, and find your next favorite dish.">
+    <meta name="twitter:image" content="https://example.com/recipes/images/social-preview.png">
+    
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Logo and Title -->
+        <header class="header">
+            <div class="logo-title">
+                <img src="images/recipe-book.png" alt="RecipeBook logo" class="logo">
+                <h1>RecipeBook</h1>
+            </div>
+        </header>
+
+        <!-- Search Area -->
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text" placeholder="Find a recipe" class="search-input">
+                <button class="search-btn" aria-label="Search">
+                    <img src="images/search.svg" alt="">
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="recipe-container">
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    <img src="images/escalopes-de-poulet-a-la-creme.webp" alt="Escalope de poulet a la creme with green beans">
+                </div>
+                <div class="recipe-content">
+                    <div class="recipe-tags">
+                        <span class="recipe-category">Chicken</span>
+                        <span class="recipe-category">Entree</span>
+                    </div>
+                    <h2>Escalope de Poulet a la Creme with Steamed Green Beans (Chicken with Cream)</h2>
+                    <span
+                        class="rating"
+                        role="img"
+                        aria-label="Rating: 4 out of 5 stars"
+                    >
+                        <span aria-hidden="true" class="icon-star">⭐</span>
+                        <span aria-hidden="true" class="icon-star">⭐</span>
+                        <span aria-hidden="true" class="icon-star">⭐</span>
+                        <span aria-hidden="true" class="icon-star">⭐</span>
+                        <span aria-hidden="true" class="icon-star-empty">☆</span>
+                    </span>
+                    <p class="recipe-description">Delicious quick and easy creamy rice dish. The mustard, mushrooms, and lemon all blend together wonderfully.</p>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="social">
+                <!-- Social media icons provided under CC from
+                https://www.iconfinder.com/AlfredoCreates -->
+                <a href="#" aria-label="Instagram"><img src="images/instagram_icon.svg" alt="instagram icon"></a>
+                <a href="#" aria-label="YouTube"><img src="images/youtube_icon.svg" alt="youtube icon"></a>
+                <a href="#" aria-label="Pinterest"><img src="images/pinterest_icon.svg" alt="pinterest icon"></a>
+            </div>
+            <p class="attribution">
+                <a href="https://www.flaticon.com/free-icons/recipe" title="recipe icons">Recipe icons created by Freepik - Flaticon</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
