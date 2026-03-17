@@ -117,9 +117,10 @@ img {
 .recipe-container {
     flex: 1;
     padding: 0 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
 }
 
 .recipe-card {
@@ -132,6 +133,14 @@ img {
     box-shadow: none;
     width: 100%;
     max-width: 100%;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-size: 1.1rem;
 }
 
 .recipe-image {
@@ -317,6 +326,11 @@ img {
 }
 
 @media (max-width: 767px) {
+    .recipe-container {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
     .header h1 {
         font-size: 3.25rem;
     }
