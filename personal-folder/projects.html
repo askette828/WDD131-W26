@@ -7,97 +7,34 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="brand" aria-label="Dias Zhanbolatov home">
-            <img src="images/logo.png" alt="Dias Zhanbolatov logo" class="nav-logo">
-            <span>Dias Zhanbolatov</span>
-        </a>
-        <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle menu">
-            <span class="sr-only">Menu</span>
-            <span class="menu-toggle-icon" aria-hidden="true"></span>
-        </button>
-        <div class="nav-links" id="primary-navigation">
-            <a href="index.html">Home</a>
-            <a href="projects.html" class="active">Projects</a>
-            <button id="theme-toggle" type="button" aria-live="polite">Switch to dark mode</button>
+
+<nav>
+    <a href="index.html" class="brand">
+        <img src="images/logo.png" alt="logo" class="nav-logo">
+        <span>Dias Zhanbolatov</span>
+    </a>
+    <button id="menu-toggle" class="menu-toggle">MENU</button>
+    <div class="nav-links" id="primary-navigation">
+        <a href="index.html">Home</a>
+        <a href="projects.html" class="active">Projects</a>
+        <button id="theme-toggle">Dark Mode</button>
+    </div>
+</nav>
+
+<main>
+    <section id="projects">
+        <h1>My Projects</h1>
+        <p class="section-intro">Here are some projects I worked on while practicing web development. Each one helped me learn something different.</p>
+        <div class="projects-grid">
         </div>
-    </nav>
+    </section>
+</main>
 
-    <main>
-        <section id="projects">
-            <h1>My Projects</h1>
-            <p class="section-intro">Here are some projects I worked on while practicing web development. Each one helped me learn something different.</p>
-            <article class="project-card project-card-inline">
-                <img class="project-image" src="images/giro.webp" alt="Giro Girls thumbnail">
-                <p class="project-category">Full Stack</p>
-                <h3>Giro Girls</h3>
-                <p>A production website project built with TypeScript and Node.js.</p>
-                <div class="tags">
-                    <span class="tag">TypeScript</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">Web App</span>
-                </div>
-                <a class="project-link" href="http://giro-girls.kz/" target="_blank" rel="noopener noreferrer">Visit</a>
-            </article>
-            <div class="filter-buttons" aria-label="Project filters">
-            </div>
-            <div class="projects-grid" aria-live="polite">
-            </div>
-        </section>
-    </main>
+<footer>
+    <p>&copy; 2026 Dias Zhanbolatov</p>
+</footer>
 
-    <footer>
-        <p>&copy; 2026 Dias Zhanbolatov</p>
-    </footer>
+<script src="scripts/main.js"></script>
 
-    <script>
-        (function () {
-            var root = document.documentElement;
-            var body = document.body;
-            var button = document.getElementById("theme-toggle");
-            var menuToggle = document.getElementById("menu-toggle");
-            var navLinks = document.getElementById("primary-navigation");
-            var saved = localStorage.getItem("theme");
-            var theme = saved === "dark" ? "dark" : "light";
-
-            function apply(themeName) {
-                root.dataset.theme = themeName;
-                body.dataset.theme = themeName;
-                if (button) {
-                    var text = themeName === "dark" ? "Switch to light mode" : "Switch to dark mode";
-                    button.textContent = text;
-                    button.setAttribute("aria-label", text);
-                }
-            }
-
-            apply(theme);
-
-            if (button) {
-                button.addEventListener("click", function () {
-                    var next = root.dataset.theme === "dark" ? "light" : "dark";
-                    apply(next);
-                    localStorage.setItem("theme", next);
-                });
-            }
-
-            if (menuToggle && navLinks) {
-                menuToggle.addEventListener("click", function () {
-                    var isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-                    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
-                    navLinks.classList.toggle("open", !isExpanded);
-                });
-
-                navLinks.querySelectorAll("a").forEach(function (link) {
-                    link.addEventListener("click", function () {
-                        if (window.innerWidth <= 900) {
-                            menuToggle.setAttribute("aria-expanded", "false");
-                            navLinks.classList.remove("open");
-                        }
-                    });
-                });
-            }
-        })();
-    </script>
-    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

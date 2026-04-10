@@ -1,239 +1,229 @@
-import { projects, skills } from "./data.js";
+// my portfolio data
+var skills = [
+    { name: "HTML", level: 88, detail: "I use HTML to build clear page structure with headings, sections, links, and forms." },
+    { name: "CSS", level: 82, detail: "I use CSS for layout, spacing, colors, and making pages look better on phones and laptops." },
+    { name: "JavaScript", level: 76, detail: "I use JavaScript to add interactivity like buttons, filters, validation, and theme changes." },
+    { name: "Node.js", level: 72, detail: "I use Node.js to build backend services, handle routes, and run JavaScript on the server." },
+    { name: "TypeScript", level: 70, detail: "I use TypeScript to write safer JavaScript with types and better project structure." },
+    { name: "Problem Solving", level: 74, detail: "I am getting better at planning my code, testing small changes, and fixing mistakes as I go." }
+];
 
-function getThemeToggle() {
-    return document.getElementById("theme-toggle");
-}
+var projects = [
+    { title: "Giro Girls", category: "Full Stack", description: "A production website project for Giro Girls built with TypeScript and Node.js.", tags: ["TypeScript", "Node.js", "Web App"], highlight: "Custom frontend experience connected to a Node.js backend.", url: "http://giro-girls.kz/", image: "images/giro.webp" }
+];
 
-function applyTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    document.body.dataset.theme = theme;
-
-    const themeToggle = getThemeToggle();
-    if (themeToggle) {
-        themeToggle.textContent = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-        themeToggle.setAttribute("aria-label", themeToggle.textContent);
-    }
-}
-
-function initializeTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    const theme = savedTheme === "dark" ? "dark" : "light";
-
-    applyTheme(theme);
-
-    const themeToggle = getThemeToggle();
-    if (themeToggle && themeToggle.dataset.bound !== "true") {
-        themeToggle.dataset.bound = "true";
-        themeToggle.addEventListener("click", () => {
-            const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-            applyTheme(nextTheme);
-            localStorage.setItem("theme", nextTheme);
-        });
-    }
-}
-
-function initializeResponsiveMenu() {
-    const menuToggle = document.getElementById("menu-toggle");
-    const navLinks = document.getElementById("primary-navigation");
-
-    if (!menuToggle || !navLinks) {
-        return;
-    }
-
-    const setExpanded = (isExpanded) => {
-        menuToggle.setAttribute("aria-expanded", String(isExpanded));
-        navLinks.classList.toggle("open", isExpanded);
-    };
-
-    setExpanded(false);
-
-    menuToggle.addEventListener("click", () => {
-        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-        setExpanded(!isExpanded);
-    });
-
-    navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                setExpanded(false);
-            }
-        });
-    });
-
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 900) {
-            setExpanded(false);
+// theme toggle stuff
+function initTheme() {
+    var themeBtn = document.getElementById("theme-toggle");
+    var savedTheme = localStorage.getItem("theme");
+    
+    if (savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        document.body.setAttribute("data-theme", "dark");
+        if (themeBtn) {
+            themeBtn.innerText = "Light Mode";
         }
-    });
+    }
+    
+    if (themeBtn) {
+        themeBtn.onclick = function() {
+            var current = document.documentElement.getAttribute("data-theme");
+            if (current === "dark") {
+                document.documentElement.setAttribute("data-theme", "light");
+                document.body.setAttribute("data-theme", "light");
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "Dark Mode";
+            } else {
+                document.documentElement.setAttribute("data-theme", "dark");
+                document.body.setAttribute("data-theme", "dark");
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "Light Mode";
+            }
+        };
+    }
 }
 
-function renderSkills() {
-    const skillsContainer = document.querySelector(".skills-container");
-    if (!skillsContainer) {
-        return;
+// mobile menu toggle
+function initMenu() {
+    var menuBtn = document.getElementById("menu-toggle");
+    var navLinks = document.getElementById("primary-navigation");
+    
+    if (menuBtn && navLinks) {
+        menuBtn.onclick = function() {
+            if (navLinks.style.display === "block") {
+                navLinks.style.display = "none";
+            } else {
+                navLinks.style.display = "block";
+            }
+        };
     }
-
-    skillsContainer.innerHTML = "";
-
-    skills.forEach((skill) => {
-        const skillElement = document.createElement("article");
-        skillElement.className = "skill";
-        skillElement.innerHTML = `
-            <div class="skill-top">
-                <h3>${skill.name}</h3>
-                <span>${skill.level}%</span>
-            </div>
-            <p>${skill.detail}</p>
-            <div class="progress-bar" aria-hidden="true">
-                <div class="progress" style="width: ${skill.level}%"></div>
-            </div>
-        `;
-        skillsContainer.appendChild(skillElement);
-    });
 }
 
-function getProjectMarkup(project) {
-    const tags = project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("");
-    const imageMarkup = project.image
-        ? `<img class="project-image" src="${project.image}" alt="${project.title} screenshot">`
-        : "";
-    const linkMarkup = project.url
-        ? `<a class="project-link" href="${project.url}" target="_blank" rel="noopener noreferrer">Visit</a>`
-        : "";
-
-    return `
-        <article class="project-card">
-            ${imageMarkup}
-            <p class="project-category">${project.category}</p>
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <p class="project-highlight">${project.highlight}</p>
-            <div class="tags">${tags}</div>
-            ${linkMarkup}
-        </article>
-    `;
+// render skills on the page
+function showSkills() {
+    var container = document.querySelector(".skills-container");
+    if (!container) return;
+    
+    var html = "";
+    for (var i = 0; i < skills.length; i++) {
+        var skill = skills[i];
+        html = html + '<article class="skill">';
+        html = html + '<div class="skill-top">';
+        html = html + '<h3>' + skill.name + '</h3>';
+        html = html + '<span>' + skill.level + '%</span>';
+        html = html + '</div>';
+        html = html + '<p>' + skill.detail + '</p>';
+        html = html + '<div class="progress-bar">';
+        html = html + '<div class="progress" style="width:' + skill.level + '%"></div>';
+        html = html + '</div>';
+        html = html + '</article>';
+    }
+    container.innerHTML = html;
 }
 
-function renderProjects(filter = "All") {
-    const projectsGrid = document.querySelector(".projects-grid");
-    if (!projectsGrid) {
-        return;
+// get project card HTML
+function makeProjectCard(project) {
+    var tagHtml = "";
+    for (var j = 0; j < project.tags.length; j++) {
+        tagHtml = tagHtml + '<span class="tag">' + project.tags[j] + '</span>';
     }
-
-    const limit = Number(projectsGrid.dataset.projectLimit || 0);
-    const filteredProjects = filter === "All"
-        ? projects
-        : projects.filter((project) => project.category === filter);
-    const visibleProjects = limit > 0 ? filteredProjects.slice(0, limit) : filteredProjects;
-
-    projectsGrid.innerHTML = "";
-
-    if (visibleProjects.length === 0) {
-        projectsGrid.innerHTML = `
-            <article class="project-card empty-state">
-                <h3>No projects in this category yet</h3>
-                <p>Try another filter to explore the rest of the portfolio.</p>
-            </article>
-        `;
-        return;
+    
+    var card = '<article class="project-card">';
+    if (project.image) {
+        card = card + '<img class="project-image" src="' + project.image + '" alt="' + project.title + '">';
     }
-
-    visibleProjects.forEach((project) => {
-        projectsGrid.insertAdjacentHTML("beforeend", getProjectMarkup(project));
-    });
+    card = card + '<p class="project-category">' + project.category + '</p>';
+    card = card + '<h3>' + project.title + '</h3>';
+    card = card + '<p>' + project.description + '</p>';
+    card = card + '<p class="project-highlight">' + project.highlight + '</p>';
+    card = card + '<div class="tags">' + tagHtml + '</div>';
+    if (project.url) {
+        card = card + '<a class="project-link" href="' + project.url + '" target="_blank">Visit</a>';
+    }
+    card = card + '</article>';
+    return card;
 }
 
-function renderProjectFilters() {
-    const filterContainer = document.querySelector(".filter-buttons");
-    if (!filterContainer) {
-        return;
+// render project filters
+function showFilters() {
+    var filterDiv = document.querySelector(".filter-buttons");
+    if (!filterDiv) return;
+    
+    var categories = ["All"];
+    for (var i = 0; i < projects.length; i++) {
+        var cat = projects[i].category;
+        var alreadyAdded = false;
+        for (var j = 0; j < categories.length; j++) {
+            if (categories[j] === cat) {
+                alreadyAdded = true;
+                break;
+            }
+        }
+        if (!alreadyAdded) {
+            categories.push(cat);
+        }
     }
-
-    const categories = ["All", ...new Set(projects.map((project) => project.category))];
-    let activeFilter = "All";
-
-    filterContainer.innerHTML = "";
-
-    categories.forEach((category) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = category === activeFilter ? "filter-button active" : "filter-button";
-        button.textContent = category;
-
-        button.addEventListener("click", () => {
-            activeFilter = category;
-            filterContainer.querySelectorAll("button").forEach((filterButton) => {
-                const isActive = filterButton.textContent === activeFilter;
-                filterButton.classList.toggle("active", isActive);
-                filterButton.setAttribute("aria-pressed", String(isActive));
-            });
-            renderProjects(activeFilter);
-        });
-
-        button.setAttribute("aria-pressed", String(category === activeFilter));
-        filterContainer.appendChild(button);
-    });
+    
+    var btnHtml = "";
+    for (var k = 0; k < categories.length; k++) {
+        var activeClass = k === 0 ? " active" : "";
+        btnHtml = btnHtml + '<button class="filter-button' + activeClass + '">' + categories[k] + '</button>';
+    }
+    filterDiv.innerHTML = btnHtml;
+    
+    // add click events to filter buttons
+    var buttons = filterDiv.querySelectorAll("filter-button");
+    var allBtns = filterDiv.getElementsByTagName("button");
+    for (var m = 0; m < allBtns.length; m++) {
+        (function(cat) {
+            allBtns[m].onclick = function() {
+                for (var n = 0; n < allBtns.length; n++) {
+                    allBtns[n].className = "filter-button";
+                }
+                this.className = "filter-button active";
+                showProjects(cat);
+            };
+        })(categories[m]);
+    }
 }
 
-function validateContactForm(name, email, message) {
-    if (name.trim().length < 2) {
-        return "Please enter a name with at least 2 characters.";
+// render projects
+function showProjects(filter) {
+    var grid = document.querySelector(".projects-grid");
+    if (!grid) return;
+    
+    var limitAttr = grid.getAttribute("data-project-limit");
+    var limit = 0;
+    if (limitAttr) {
+        limit = parseInt(limitAttr);
     }
-
-    if (!email.includes("@") || !email.includes(".")) {
-        return "Please enter a valid email address.";
+    
+    var filtered = [];
+    for (var i = 0; i < projects.length; i++) {
+        if (filter === "All" || projects[i].category === filter) {
+            filtered.push(projects[i]);
+        }
     }
-
-    if (message.trim().length < 15) {
-        return "Please write a message with at least 15 characters.";
+    
+    if (limit > 0 && filtered.length > limit) {
+        filtered = filtered.slice(0, limit);
     }
-
-    return "";
+    
+    var html = "";
+    if (filtered.length === 0) {
+        html = '<article class="project-card empty-state"><h3>No projects in this category yet</h3><p>Try another filter.</p></article>';
+    } else {
+        for (var j = 0; j < filtered.length; j++) {
+            html = html + makeProjectCard(filtered[j]);
+        }
+    }
+    grid.innerHTML = html;
 }
 
-function initializeContactForm() {
-    const contactForm = document.getElementById("contact-form");
-    const status = document.getElementById("form-status");
-
-    if (!contactForm || !status) {
-        return;
-    }
-
-    contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const name = document.getElementById("name")?.value ?? "";
-        const email = document.getElementById("email")?.value ?? "";
-        const message = document.getElementById("message")?.value ?? "";
-        const validationMessage = validateContactForm(name, email, message);
-
-        if (validationMessage) {
-            status.textContent = validationMessage;
-            status.dataset.state = "error";
+// contact form validation
+function initContactForm() {
+    var form = document.getElementById("contact-form");
+    var status = document.getElementById("form-status");
+    
+    if (!form || !status) return;
+    
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        
+        var nameVal = document.getElementById("name").value;
+        var emailVal = document.getElementById("email").value;
+        var msgVal = document.getElementById("message").value;
+        
+        if (nameVal.length < 2) {
+            status.innerText = "Please enter a name with at least 2 characters.";
+            status.style.color = "red";
             return;
         }
-
-        status.textContent = `Thanks, ${name.trim()}! Your message looks great. This demo form is ready for a real backend or email service.`;
-        status.dataset.state = "success";
-        contactForm.reset();
-    });
+        
+        if (emailVal.indexOf("@") === -1 || emailVal.indexOf(".") === -1) {
+            status.innerText = "Please enter a valid email address.";
+            status.style.color = "red";
+            return;
+        }
+        
+        if (msgVal.length < 15) {
+            status.innerText = "Please write a message with at least 15 characters.";
+            status.style.color = "red";
+            return;
+        }
+        
+        status.innerText = "Thanks, " + nameVal + "! Your message has been validated. This demo form is ready for a real backend.";
+        status.style.color = "green";
+        form.reset();
+    };
 }
 
-function setFooterYear() {
-    const footerText = document.querySelector("footer p");
-    if (!footerText) {
-        return;
-    }
-
-    footerText.textContent = "© 2026 Dias Zhanbolatov";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    initializeResponsiveMenu();
-    initializeTheme();
-    renderSkills();
-    renderProjectFilters();
-    renderProjects();
-    initializeContactForm();
-    setFooterYear();
-});
+// run everything when page loads
+window.onload = function() {
+    initTheme();
+    initMenu();
+    showSkills();
+    showFilters();
+    showProjects("All");
+    initContactForm();
+};
